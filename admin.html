@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | Magic Moments by Venetia</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: "Jost", "Arial", sans-serif; background: #1a0f20; color: white; min-height: 100vh; }
+
+/* LOGIN */
+#loginScreen {
+  min-height: 100vh; display: flex; justify-content: center; align-items: center;
+  background: linear-gradient(160deg, #2d1b33 0%, #1a0f20 50%, #2d1b33 100%);
+}
+.login-box {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 16px; padding: 48px; width: 380px; text-align: center;
+}
+.login-logo { font-family: Georgia, serif; font-size: 22px; color: #e8d5a3; margin-bottom: 8px; }
+.login-logo em { color: #e8a0b0; font-style: italic; }
+.login-sub { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 36px; }
+.login-label { display: block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; text-align: left; }
+.login-input {
+  width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 14px 16px; color: white; font-size: 15px; outline: none;
+  transition: border-color 0.2s; margin-bottom: 24px;
+}
+.login-input:focus { border-color: rgba(201,168,76,0.4); }
+.login-btn {
+  width: 100%; background: linear-gradient(135deg, #c9637a, #a04560); color: white;
+  border: none; padding: 14px; border-radius: 30px; font-size: 13px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: transform 0.2s;
+}
+.login-btn:hover { transform: translateY(-2px); }
+.login-error { color: #e09090; font-size: 13px; margin-top: 12px; display: none; }
+
+/* ADMIN PANEL */
+#adminPanel { display: none; }
+.admin-nav {
+  background: rgba(45,27,51,0.98); padding: 18px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(201,168,76,0.2); position: sticky; top: 0; z-index: 10;
+}
+.admin-nav-logo { font-family: Georgia, serif; font-size: 18px; color: #e8d5a3; }
+.admin-nav-logo em { color: #e8a0b0; font-style: italic; }
+.admin-nav-right { display: flex; align-items: center; gap: 16px; }
+.admin-badge { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+.logout-btn {
+  background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6);
+  padding: 8px 20px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.2s;
+}
+.logout-btn:hover { border-color: #c9637a; color: #e8a0b0; }
+
+.admin-content { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
+.admin-title { font-family: Georgia, serif; font-size: 36px; font-weight: 300; color: white; margin-bottom: 8px; }
+.admin-title em { font-style: italic; color: #e8a0b0; }
+.admin-subtitle { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 48px; }
+
+.admin-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 32px; margin-bottom: 24px;
+}
+.admin-card-title {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c;
+  margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+}
+.admin-card-title::after { content: ""; flex: 1; height: 1px; background: rgba(201,168,76,0.2); }
+
+/* Date picker */
+.date-add-row { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+.date-input {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 12px 16px; color: white; font-size: 14px; outline: none;
+  transition: border-color 0.2s; flex: 1; min-width: 200px;
+}
+.date-input:focus { border-color: rgba(201,168,76,0.4); }
+.add-btn {
+  background: linear-gradient(135deg, #c9a84c, #a08030); color: #1a0f20;
+  border: none; padding: 12px 28px; border-radius: 30px; font-size: 13px;
+  font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; white-space: nowrap;
+  transition: transform 0.2s;
+}
+.add-btn:hover { transform: translateY(-2px); }
+
+/* Blocked dates list */
+.blocked-dates-list { display: flex; flex-direction: column; gap: 8px; }
+.blocked-date-item {
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 12px 16px;
+}
+.blocked-date-item .date-label { font-size: 15px; color: rgba(255,255,255,0.8); }
+.blocked-date-item .date-note { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+.remove-btn {
+  background: rgba(200,80,80,0.15); border: 1px solid rgba(200,80,80,0.3);
+  color: #e09090; padding: 6px 16px; border-radius: 20px; font-size: 12px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.remove-btn:hover { background: rgba(200,80,80,0.3); }
+.empty-state { text-align: center; color: rgba(255,255,255,0.25); font-size: 14px; padding: 24px; }
+
+/* Note input */
+.note-row { display: flex; gap: 12px; align-items: center; }
+.note-input {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 12px 16px; color: white; font-size: 14px; outline: none;
+  flex: 1; transition: border-color 0.2s;
+}
+.note-input:focus { border-color: rgba(201,168,76,0.4); }
+
+/* Status message */
+.status-msg {
+  font-size: 13px; padding: 10px 16px; border-radius: 8px; margin-top: 12px; display: none;
+}
+.status-msg.success { background: rgba(100,200,120,0.15); border: 1px solid rgba(100,200,120,0.3); color: #90e0a0; }
+.status-msg.error { background: rgba(200,80,80,0.15); border: 1px solid rgba(200,80,80,0.3); color: #e09090; }
+
+/* Stats */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.stat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 20px; text-align: center; }
+.stat-number { font-family: Georgia, serif; font-size: 36px; font-weight: 300; color: #c9a84c; }
+.stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+/* Password change */
+.pwd-form { display: flex; flex-direction: column; gap: 12px; max-width: 400px; }
+.pwd-input {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 12px 16px; color: white; font-size: 14px; outline: none;
+}
+.pwd-input:focus { border-color: rgba(201,168,76,0.4); }
+.pwd-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Magic Moments <em>by Venetia</em></div>
+    <div class="login-sub">Admin Panel</div>
+    <label class="login-label">Password</label>
+    <input type="password" class="login-input" id="passwordInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')login()">
+    <button class="login-btn" onclick="login()">Sign In</button>
+    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+  <div class="admin-nav">
+    <div class="admin-nav-logo">Magic Moments <em>by Venetia</em></div>
+    <div class="admin-nav-right">
+      <span class="admin-badge">Admin Panel</span>
+      <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <h1 class="admin-title">Booking <em>Management</em></h1>
+    <p class="admin-subtitle">Manage your availability and blocked dates below.</p>
+
+    <!-- Stats -->
+    <div class="admin-card">
+      <div class="admin-card-title">Overview</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="statBlocked">0</div>
+          <div class="stat-label">Blocked Dates</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statUpcoming">0</div>
+          <div class="stat-label">Upcoming Blocks</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statPast">0</div>
+          <div class="stat-label">Past Blocks</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Block a date -->
+    <div class="admin-card">
+      <div class="admin-card-title">Block a Date</div>
+      <div class="date-add-row">
+        <input type="date" class="date-input" id="newDateInput">
+        <input type="text" class="note-input" id="newNoteInput" placeholder="Optional note (e.g. Wedding booked)">
+        <button class="add-btn" onclick="addBlockedDate()">Block Date</button>
+      </div>
+      <div class="status-msg" id="addStatus"></div>
+    </div>
+
+    <!-- Blocked dates list -->
+    <div class="admin-card">
+      <div class="admin-card-title">Blocked Dates</div>
+      <div class="blocked-dates-list" id="blockedDatesList">
+        <div class="empty-state">No dates blocked yet.</div>
+      </div>
+    </div>
+
+    <!-- Change password -->
+    <div class="admin-card">
+      <div class="admin-card-title">Change Password</div>
+      <div class="pwd-form">
+        <div>
+          <div class="pwd-label">New Password</div>
+          <input type="password" class="pwd-input" id="newPwd" placeholder="Enter new password">
+        </div>
+        <div>
+          <div class="pwd-label">Confirm Password</div>
+          <input type="password" class="pwd-input" id="confirmPwd" placeholder="Confirm new password">
+        </div>
+        <button class="add-btn" style="align-self:flex-start;" onclick="changePassword()">Update Password</button>
+        <div class="status-msg" id="pwdStatus"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Default password - stored in localStorage so Venetia can change it
+const DEFAULT_PASSWORD = "Venetia2024!";
+
+function getPassword() {
+  return localStorage.getItem("mmv_admin_password") || DEFAULT_PASSWORD;
+}
+
+function login() {
+  const input = document.getElementById("passwordInput").value;
+  if (input === getPassword()) {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+    renderBlockedDates();
+    updateStats();
+  } else {
+    document.getElementById("loginError").style.display = "block";
+    document.getElementById("passwordInput").value = "";
+  }
+}
+
+function logout() {
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("adminPanel").style.display = "none";
+  document.getElementById("passwordInput").value = "";
+  document.getElementById("loginError").style.display = "none";
+}
+
+// Blocked dates management
+function getBlockedDates() {
+  try { return JSON.parse(localStorage.getItem("mmv_blocked_dates") || "[]"); } catch(e) { return []; }
+}
+
+function getBlockedDateNotes() {
+  try { return JSON.parse(localStorage.getItem("mmv_blocked_notes") || "{}"); } catch(e) { return {}; }
+}
+
+function saveBlockedDates(dates, notes) {
+  localStorage.setItem("mmv_blocked_dates", JSON.stringify(dates));
+  localStorage.setItem("mmv_blocked_notes", JSON.stringify(notes));
+}
+
+function addBlockedDate() {
+  const dateInput = document.getElementById("newDateInput").value;
+  const noteInput = document.getElementById("newNoteInput").value;
+  const statusEl = document.getElementById("addStatus");
+
+  if (!dateInput) {
+    showStatus(statusEl, "Please select a date.", "error");
+    return;
+  }
+
+  const dates = getBlockedDates();
+  const notes = getBlockedDateNotes();
+
+  if (dates.includes(dateInput)) {
+    showStatus(statusEl, "This date is already blocked.", "error");
+    return;
+  }
+
+  dates.push(dateInput);
+  dates.sort();
+  if (noteInput) notes[dateInput] = noteInput;
+  saveBlockedDates(dates, notes);
+
+  document.getElementById("newDateInput").value = "";
+  document.getElementById("newNoteInput").value = "";
+  showStatus(statusEl, "Date blocked successfully!", "success");
+  renderBlockedDates();
+  updateStats();
+}
+
+function removeBlockedDate(date) {
+  const dates = getBlockedDates().filter(d => d !== date);
+  const notes = getBlockedDateNotes();
+  delete notes[date];
+  saveBlockedDates(dates, notes);
+  renderBlockedDates();
+  updateStats();
+}
+
+function renderBlockedDates() {
+  const dates = getBlockedDates();
+  const notes = getBlockedDateNotes();
+  const list = document.getElementById("blockedDatesList");
+
+  if (dates.length === 0) {
+    list.innerHTML = '<div class="empty-state">No dates blocked yet.</div>';
+    return;
+  }
+
+  const today = new Date().toISOString().split("T")[0];
+  list.innerHTML = dates.map(date => {
+    const isPast = date < today;
+    const formatted = new Date(date + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+    const note = notes[date] ? `<div class="date-note">${notes[date]}</div>` : "";
+    const pastBadge = isPast ? ' <span style="font-size:10px;color:rgba(255,255,255,0.25);margin-left:6px;">(past)</span>' : "";
+    return `<div class="blocked-date-item" style="${isPast ? "opacity:0.5;" : ""}">
+      <div>
+        <div class="date-label">${formatted}${pastBadge}</div>
+        ${note}
+      </div>
+      <button class="remove-btn" onclick="removeBlockedDate('${date}')">Remove</button>
+    </div>`;
+  }).join("");
+}
+
+function updateStats() {
+  const dates = getBlockedDates();
+  const today = new Date().toISOString().split("T")[0];
+  const upcoming = dates.filter(d => d >= today).length;
+  const past = dates.filter(d => d < today).length;
+  document.getElementById("statBlocked").textContent = dates.length;
+  document.getElementById("statUpcoming").textContent = upcoming;
+  document.getElementById("statPast").textContent = past;
+}
+
+function changePassword() {
+  const newPwd = document.getElementById("newPwd").value;
+  const confirmPwd = document.getElementById("confirmPwd").value;
+  const statusEl = document.getElementById("pwdStatus");
+
+  if (!newPwd || newPwd.length < 6) {
+    showStatus(statusEl, "Password must be at least 6 characters.", "error");
+    return;
+  }
+  if (newPwd !== confirmPwd) {
+    showStatus(statusEl, "Passwords do not match.", "error");
+    return;
+  }
+
+  localStorage.setItem("mmv_admin_password", newPwd);
+  document.getElementById("newPwd").value = "";
+  document.getElementById("confirmPwd").value = "";
+  showStatus(statusEl, "Password updated successfully!", "success");
+}
+
+function showStatus(el, msg, type) {
+  el.textContent = msg;
+  el.className = "status-msg " + type;
+  el.style.display = "block";
+  setTimeout(() => { el.style.display = "none"; }, 4000);
+}
+
+// Set min date to today
+const today = new Date().toISOString().split("T")[0];
+document.getElementById("newDateInput").setAttribute("min", today);
+</script>
+</body>
+</html>
