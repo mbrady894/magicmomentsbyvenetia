@@ -48,6 +48,7 @@ body { font-family: "Jost", "Arial", sans-serif; background: #1a0f20; color: whi
 
 /* FORM ELEMENTS */
 .date-add-row { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+input[type="date"].field-input { max-width: 100%; min-width: 0; }
 .field-input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%; max-width: 100%; font-family: "Jost","Arial",sans-serif; overflow: hidden; }
 .field-input:focus { border-color: rgba(201,168,76,0.4); }
 .field-select { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%; cursor: pointer; font-family: "Jost","Arial",sans-serif; }
@@ -238,17 +239,15 @@ body { font-family: "Jost", "Arial", sans-serif; background: #1a0f20; color: whi
       <!-- Invoice Details -->
       <div class="admin-card">
         <div class="admin-card-title">Invoice Details</div>
-        <div style="display:grid;grid-template-columns:160px 1fr;gap:16px;margin-bottom:12px;">
+        <div style="display:grid;grid-template-columns:160px 200px 1fr;gap:16px;margin-bottom:0;">
           <div class="form-group">
             <label class="field-label">Invoice #</label>
             <input type="text" class="field-input" id="inv-number" placeholder="MMV-001">
           </div>
           <div class="form-group">
             <label class="field-label">Invoice Date</label>
-            <input type="date" class="field-input" id="inv-date">
+            <input type="date" class="field-input" id="inv-date" style="width:200px;">
           </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:0;">
           <div class="form-group">
             <label class="field-label">PO Number (if applicable)</label>
             <input type="text" class="field-input" id="inv-po" placeholder="Leave blank if not needed">
@@ -291,13 +290,11 @@ body { font-family: "Jost", "Arial", sans-serif; background: #1a0f20; color: whi
             </select>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:12px;">
+        <div class="form-grid-2">
           <div class="form-group">
             <label class="field-label">Event Date</label>
-            <input type="date" class="field-input" id="inv-event-date">
+            <input type="date" class="field-input" id="inv-event-date" style="width:100%;">
           </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:0;">
           <div class="form-group">
             <label class="field-label">Event Venue / Location</label>
             <input type="text" class="field-input" id="inv-venue" placeholder="e.g. Rock Springs Civic Center">
