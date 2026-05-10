@@ -140,6 +140,8 @@ input[type="date"].field-input { max-width: 100%; min-width: 0; }
   .total-label.grand { color: #1a0f20 !important; }
   .line-items-table th { color: #2d1b33 !important; border-bottom-color: #ccc !important; }
   .line-items-table tbody tr { border-bottom-color: #eee !important; }
+  /* Fix event date overlap on print */
+  #inv-event-date { width: 200px !important; max-width: 200px !important; }
   #printHeader { display: block !important; }
   .deposit-note { color: #888 !important; }
   /* Hide dropdown arrows on print */
@@ -150,7 +152,7 @@ input[type="date"].field-input { max-width: 100%; min-width: 0; }
   .field-input[type="date"], .field-select { padding: 8px 10px !important; }
 }
 
-#printHeader { display: none !important; text-align: center; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid #2d1b33; }
+#printHeader { display: none; text-align: center; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid #2d1b33; }
 #printHeader h1 { font-family: Georgia, serif; font-size: 26px; color: #2d1b33; font-weight: 300; }
 #printHeader h1 em { font-style: italic; color: #c9637a; }
 #printHeader p { font-size: 12px; color: #666; margin-top: 6px; }
@@ -249,7 +251,7 @@ input[type="date"].field-input { max-width: 100%; min-width: 0; }
             <input type="date" class="field-input" id="inv-date" style="width:200px;">
           </div>
           <div class="form-group">
-            <label class="field-label">PO Number</label>
+            <label class="field-label">PO Number (if applicable)</label>
             <input type="text" class="field-input" id="inv-po" placeholder="Leave blank if not needed">
           </div>
         </div>
@@ -293,7 +295,7 @@ input[type="date"].field-input { max-width: 100%; min-width: 0; }
         <div class="form-grid-2">
           <div class="form-group">
             <label class="field-label">Event Date</label>
-            <input type="date" class="field-input" id="inv-event-date" style="width:200px;">
+            <input type="date" class="field-input" id="inv-event-date" style="width:100%;">
           </div>
           <div class="form-group">
             <label class="field-label">Event Venue / Location</label>
