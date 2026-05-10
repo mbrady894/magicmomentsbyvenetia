@@ -48,7 +48,7 @@ body { font-family: "Jost", "Arial", sans-serif; background: #1a0f20; color: whi
 
 /* FORM ELEMENTS */
 .date-add-row { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
-.field-input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%; font-family: “Jost”,“Arial”,sans-serif; }
+.field-input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%; max-width: 100%; font-family: “Jost”,“Arial”,sans-serif; overflow: hidden; }
 .field-input:focus { border-color: rgba(201,168,76,0.4); }
 .field-select { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%; cursor: pointer; font-family: “Jost”,“Arial”,sans-serif; }
 .field-select:focus { border-color: rgba(201,168,76,0.4); }
@@ -149,7 +149,7 @@ body { background: white !important; color: #1a0f20 !important; -webkit-print-co
 .field-input[type=“date”], .field-select { padding: 8px 10px !important; }
 }
 
-#printHeader { display: none; text-align: center; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid #2d1b33; }
+#printHeader { display: none !important; text-align: center; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid #2d1b33; }
 #printHeader h1 { font-family: Georgia, serif; font-size: 26px; color: #2d1b33; font-weight: 300; }
 #printHeader h1 em { font-style: italic; color: #c9637a; }
 #printHeader p { font-size: 12px; color: #666; margin-top: 6px; }
@@ -247,7 +247,7 @@ body { background: white !important; color: #1a0f20 !important; -webkit-print-co
   <!-- Invoice Details -->
   <div class="admin-card">
     <div class="admin-card-title">Invoice Details</div>
-    <div style="display:grid;grid-template-columns:160px 1fr 1fr;gap:16px;margin-bottom:16px;">
+    <div style="display:grid;grid-template-columns:160px 180px 1fr;gap:16px;margin-bottom:16px;">
       <div class="form-group">
         <label class="field-label">Invoice #</label>
         <input type="text" class="field-input" id="inv-number" placeholder="MMV-001">
@@ -298,7 +298,7 @@ body { background: white !important; color: #1a0f20 !important; -webkit-print-co
         </select>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+    <div style="display:grid;grid-template-columns:180px 1fr;gap:16px;margin-bottom:16px;">
       <div class="form-group">
         <label class="field-label">Event Date</label>
         <input type="date" class="field-input" id="inv-event-date">
