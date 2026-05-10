@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -220,6 +221,7 @@ body { background: white !important; color: #1a0f20 !important; -webkit-print-co
     </div>
   </div>
 </div>
+```
 
   </div>
 
@@ -230,7 +232,7 @@ body { background: white !important; color: #1a0f20 !important; -webkit-print-co
 
 ```
   <!-- Print-only header -->
-  <div <div id="printHeader" style="display:none;"> style="display:none;">
+  <div id="printHeader" style="display:none !important;">
     <h1>Magic Moments <em>by Venetia</em></h1>
     <p>Rock Springs, Wyoming &bull; (307) 705-4003 &bull; magicmomentsbyvenetia@gmail.com &bull; @mommas_magic_balloons</p>
     <div class="inv-meta">
@@ -246,7 +248,7 @@ body { background: white !important; color: #1a0f20 !important; -webkit-print-co
   <!-- Invoice Details -->
   <div class="admin-card">
     <div class="admin-card-title">Invoice Details</div>
-    <div style="display:grid;grid-template-columns:150px 110px 1fr;gap:16px;margin-bottom:16px;">
+    <div style="display:grid;grid-template-columns:160px 1fr;gap:16px;margin-bottom:12px;">
       <div class="form-group">
         <label class="field-label">Invoice #</label>
         <input type="text" class="field-input" id="inv-number" placeholder="MMV-001">
@@ -255,6 +257,8 @@ body { background: white !important; color: #1a0f20 !important; -webkit-print-co
         <label class="field-label">Invoice Date</label>
         <input type="date" class="field-input" id="inv-date">
       </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:0;">
       <div class="form-group">
         <label class="field-label">PO Number (if applicable)</label>
         <input type="text" class="field-input" id="inv-po" placeholder="Leave blank if not needed">
@@ -297,11 +301,13 @@ body { background: white !important; color: #1a0f20 !important; -webkit-print-co
         </select>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:130px 1fr;gap:16px;margin-bottom:16px;">
+    <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:12px;">
       <div class="form-group">
         <label class="field-label">Event Date</label>
         <input type="date" class="field-input" id="inv-event-date">
       </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:0;">
       <div class="form-group">
         <label class="field-label">Event Venue / Location</label>
         <input type="text" class="field-input" id="inv-venue" placeholder="e.g. Rock Springs Civic Center">
@@ -361,6 +367,7 @@ body { background: white !important; color: #1a0f20 !important; -webkit-print-co
   </div>
 
 </div>
+```
 
   </div>
 </div>
@@ -581,5 +588,6 @@ function clearInvoice() {
   addLineItem();
 }
 </script>
+
 </body>
 </html>
