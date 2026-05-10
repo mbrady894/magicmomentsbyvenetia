@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,110 +10,70 @@
 body { font-family: "Jost", "Arial", sans-serif; background: #1a0f20; color: white; min-height: 100vh; }
 
 /* LOGIN */
-#loginScreen {
-  min-height: 100vh; display: flex; justify-content: center; align-items: center;
-  background: linear-gradient(160deg, #2d1b33 0%, #1a0f20 50%, #2d1b33 100%);
-}
-.login-box {
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2);
-  border-radius: 16px; padding: 48px; width: 380px; text-align: center;
-}
+#loginScreen { min-height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(160deg, #2d1b33 0%, #1a0f20 50%, #2d1b33 100%); }
+.login-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 16px; padding: 48px; width: 380px; text-align: center; }
 .login-logo { font-family: Georgia, serif; font-size: 22px; color: #e8d5a3; margin-bottom: 8px; }
 .login-logo em { color: #e8a0b0; font-style: italic; }
 .login-sub { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 36px; }
 .login-label { display: block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; text-align: left; }
-.login-input {
-  width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px; padding: 14px 16px; color: white; font-size: 15px; outline: none;
-  transition: border-color 0.2s; margin-bottom: 24px;
-}
+.login-input { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px 16px; color: white; font-size: 15px; outline: none; transition: border-color 0.2s; margin-bottom: 24px; }
 .login-input:focus { border-color: rgba(201,168,76,0.4); }
-.login-btn {
-  width: 100%; background: linear-gradient(135deg, #c9637a, #a04560); color: white;
-  border: none; padding: 14px; border-radius: 30px; font-size: 13px; font-weight: 600;
-  letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: transform 0.2s;
-}
+.login-btn { width: 100%; background: linear-gradient(135deg, #c9637a, #a04560); color: white; border: none; padding: 14px; border-radius: 30px; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: transform 0.2s; }
 .login-btn:hover { transform: translateY(-2px); }
 .login-error { color: #e09090; font-size: 13px; margin-top: 12px; display: none; }
 
 /* ADMIN PANEL */
 #adminPanel { display: none; }
-.admin-nav {
-  background: rgba(45,27,51,0.98); padding: 18px 40px;
-  display: flex; justify-content: space-between; align-items: center;
-  border-bottom: 1px solid rgba(201,168,76,0.2); position: sticky; top: 0; z-index: 10;
-}
+.admin-nav { background: rgba(45,27,51,0.98); padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(201,168,76,0.2); position: sticky; top: 0; z-index: 10; }
 .admin-nav-logo { font-family: Georgia, serif; font-size: 18px; color: #e8d5a3; }
 .admin-nav-logo em { color: #e8a0b0; font-style: italic; }
-.admin-nav-right { display: flex; align-items: center; gap: 16px; }
-.admin-badge { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
-.logout-btn {
-  background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6);
-  padding: 8px 20px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.2s;
-}
+.logout-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); padding: 8px 20px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
 .logout-btn:hover { border-color: #c9637a; color: #e8a0b0; }
 
-.admin-content { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
-.admin-title { font-family: Georgia, serif; font-size: 36px; font-weight: 300; color: white; margin-bottom: 8px; }
+/* TABS */
+.admin-tabs { display: flex; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0 40px; }
+.tab-btn { background: none; border: none; color: rgba(255,255,255,0.4); padding: 16px 28px; font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab-btn:hover { color: rgba(255,255,255,0.7); }
+.tab-btn.active { color: #c9a84c; border-bottom-color: #c9a84c; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.admin-content { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+.admin-title { font-family: Georgia, serif; font-size: 34px; font-weight: 300; color: white; margin-bottom: 6px; }
 .admin-title em { font-style: italic; color: #e8a0b0; }
-.admin-subtitle { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 48px; }
+.admin-subtitle { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 40px; }
 
-.admin-card {
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px; padding: 32px; margin-bottom: 24px;
-}
-.admin-card-title {
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c;
-  margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
-}
-.admin-card-title::after { content: ""; flex: 1; height: 1px; background: rgba(201,168,76,0.2); }
+.admin-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 28px; margin-bottom: 20px; }
+.admin-card-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.admin-card-title::after { content: “”; flex: 1; height: 1px; background: rgba(201,168,76,0.2); }
 
-/* Date picker */
+/* FORM ELEMENTS */
 .date-add-row { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
-.date-input {
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px; padding: 12px 16px; color: white; font-size: 14px; outline: none;
-  transition: border-color 0.2s; flex: 1; min-width: 200px;
-}
+.field-input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%; font-family: “Jost”,“Arial”,sans-serif; }
+.field-input:focus { border-color: rgba(201,168,76,0.4); }
+.field-select { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%; cursor: pointer; font-family: “Jost”,“Arial”,sans-serif; }
+.field-select:focus { border-color: rgba(201,168,76,0.4); }
+.field-select option { background: #2d1b33; color: white; }
+.date-input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: white; font-size: 14px; outline: none; transition: border-color 0.2s; flex: 1; min-width: 200px; }
 .date-input:focus { border-color: rgba(201,168,76,0.4); }
-.add-btn {
-  background: linear-gradient(135deg, #c9a84c, #a08030); color: #1a0f20;
-  border: none; padding: 12px 28px; border-radius: 30px; font-size: 13px;
-  font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; white-space: nowrap;
-  transition: transform 0.2s;
-}
-.add-btn:hover { transform: translateY(-2px); }
+.note-input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 11px 14px; color: white; font-size: 14px; outline: none; flex: 1; transition: border-color 0.2s; font-family: “Jost”,“Arial”,sans-serif; }
+.note-input:focus { border-color: rgba(201,168,76,0.4); }
+.field-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 6px; display: block; }
 
-/* Blocked dates list */
+.add-btn { background: linear-gradient(135deg, #c9a84c, #a08030); color: #1a0f20; border: none; padding: 11px 24px; border-radius: 30px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: transform 0.2s; font-family: “Jost”,“Arial”,sans-serif; }
+.add-btn:hover { transform: translateY(-2px); }
+.rose-btn { background: linear-gradient(135deg, #c9637a, #a04560); color: white; border: none; padding: 11px 24px; border-radius: 30px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: transform 0.2s; font-family: “Jost”,“Arial”,sans-serif; }
+.rose-btn:hover { transform: translateY(-2px); }
+
+/* Blocked dates */
 .blocked-dates-list { display: flex; flex-direction: column; gap: 8px; }
-.blocked-date-item {
-  display: flex; justify-content: space-between; align-items: center;
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 8px; padding: 12px 16px;
-}
+.blocked-date-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 12px 16px; }
 .blocked-date-item .date-label { font-size: 15px; color: rgba(255,255,255,0.8); }
 .blocked-date-item .date-note { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
-.remove-btn {
-  background: rgba(200,80,80,0.15); border: 1px solid rgba(200,80,80,0.3);
-  color: #e09090; padding: 6px 16px; border-radius: 20px; font-size: 12px;
-  cursor: pointer; transition: all 0.2s; white-space: nowrap;
-}
+.remove-btn { background: rgba(200,80,80,0.15); border: 1px solid rgba(200,80,80,0.3); color: #e09090; padding: 6px 16px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
 .remove-btn:hover { background: rgba(200,80,80,0.3); }
 .empty-state { text-align: center; color: rgba(255,255,255,0.25); font-size: 14px; padding: 24px; }
-
-/* Note input */
-.note-row { display: flex; gap: 12px; align-items: center; }
-.note-input {
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px; padding: 12px 16px; color: white; font-size: 14px; outline: none;
-  flex: 1; transition: border-color 0.2s;
-}
-.note-input:focus { border-color: rgba(201,168,76,0.4); }
-
-/* Status message */
-.status-msg {
-  font-size: 13px; padding: 10px 16px; border-radius: 8px; margin-top: 12px; display: none;
-}
+.status-msg { font-size: 13px; padding: 10px 16px; border-radius: 8px; margin-top: 12px; display: none; }
 .status-msg.success { background: rgba(100,200,120,0.15); border: 1px solid rgba(100,200,120,0.3); color: #90e0a0; }
 .status-msg.error { background: rgba(200,80,80,0.15); border: 1px solid rgba(200,80,80,0.3); color: #e09090; }
 
@@ -122,19 +83,79 @@ body { font-family: "Jost", "Arial", sans-serif; background: #1a0f20; color: whi
 .stat-number { font-family: Georgia, serif; font-size: 36px; font-weight: 300; color: #c9a84c; }
 .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 4px; }
 
-/* Password change */
-.pwd-form { display: flex; flex-direction: column; gap: 12px; max-width: 400px; }
-.pwd-input {
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px; padding: 12px 16px; color: white; font-size: 14px; outline: none;
+/* INVOICE */
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; }
+
+.line-items-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+.line-items-table th { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c9a84c; padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(201,168,76,0.2); }
+.line-items-table td { padding: 7px 5px; vertical-align: middle; }
+.line-items-table tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
+.line-items-table tbody tr:last-child { border-bottom: none; }
+
+.li-select { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 9px 8px; color: white; font-size: 13px; outline: none; width: 100%; cursor: pointer; font-family: “Jost”,“Arial”,sans-serif; }
+.li-select:focus { border-color: rgba(201,168,76,0.4); }
+.li-select option { background: #2d1b33; }
+.li-input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 9px 8px; color: white; font-size: 13px; outline: none; width: 100%; font-family: “Jost”,“Arial”,sans-serif; }
+.li-input:focus { border-color: rgba(201,168,76,0.4); }
+.li-price { font-size: 14px; color: #c9a84c; font-weight: 600; text-align: right; white-space: nowrap; padding-right: 6px; }
+.li-remove { background: rgba(200,80,80,0.15); border: 1px solid rgba(200,80,80,0.2); color: #e09090; padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+.li-remove:hover { background: rgba(200,80,80,0.3); }
+
+.add-line-btn { background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.15); color: rgba(255,255,255,0.4); padding: 11px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all 0.2s; width: 100%; margin-bottom: 20px; font-family: “Jost”,“Arial”,sans-serif; }
+.add-line-btn:hover { border-color: rgba(201,168,76,0.4); color: #c9a84c; }
+
+.totals-section { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.total-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.total-row:last-child { border-bottom: none; padding-top: 14px; margin-top: 4px; }
+.total-label { font-size: 13px; color: rgba(255,255,255,0.6); }
+.total-label.grand { font-size: 16px; font-weight: 600; color: white; }
+.total-value { font-size: 15px; color: #c9a84c; font-weight: 600; }
+.total-value.grand { font-size: 22px; color: #c9a84c; }
+.deposit-note { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+.invoice-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* PRINT */
+@media print {
+body { background: white !important; color: #1a0f20 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+#loginScreen, .admin-nav, .admin-tabs, .invoice-actions, .add-line-btn, .li-remove, #tab-booking { display: none !important; }
+#adminPanel { display: block !important; }
+#tab-invoice { display: block !important; }
+.admin-content { padding: 0; max-width: 100%; }
+.admin-card { border: 1px solid #e0d0f0 !important; background: white !important; page-break-inside: avoid; margin-bottom: 16px; }
+.admin-card-title { color: #2d1b33 !important; }
+.admin-card-title::after { background: #e0d0f0 !important; }
+.admin-title { color: #2d1b33 !important; display: none; }
+.admin-subtitle { display: none; }
+.field-input, .field-select, .li-select, .li-input { background: white !important; color: #1a0f20 !important; border-color: #ccc !important; }
+.field-label { color: #666 !important; }
+.li-price { color: #2d1b33 !important; }
+.total-value { color: #2d1b33 !important; }
+.total-value.grand { color: #2d1b33 !important; }
+.total-row { border-bottom-color: #eee !important; }
+.totals-section { background: #f9f6f0 !important; border-color: #e0d0f0 !important; }
+.total-label { color: #555 !important; }
+.total-label.grand { color: #1a0f20 !important; }
+.line-items-table th { color: #2d1b33 !important; border-bottom-color: #ccc !important; }
+.line-items-table tbody tr { border-bottom-color: #eee !important; }
+#printHeader { display: block !important; }
+.deposit-note { color: #888 !important; }
 }
-.pwd-input:focus { border-color: rgba(201,168,76,0.4); }
-.pwd-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+
+#printHeader { display: none; text-align: center; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid #2d1b33; }
+#printHeader h1 { font-family: Georgia, serif; font-size: 26px; color: #2d1b33; font-weight: 300; }
+#printHeader h1 em { font-style: italic; color: #c9637a; }
+#printHeader p { font-size: 12px; color: #666; margin-top: 6px; }
+#printHeader .inv-meta { display: flex; justify-content: center; gap: 32px; margin-top: 12px; font-size: 13px; color: #2d1b33; }
+#printHeader .inv-meta span { font-weight: 600; }
 </style>
+
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
+
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">Magic Moments <em>by Venetia</em></div>
@@ -147,76 +168,210 @@ body { font-family: "Jost", "Arial", sans-serif; background: #1a0f20; color: whi
 </div>
 
 <!-- ADMIN PANEL -->
+
 <div id="adminPanel">
   <div class="admin-nav">
     <div class="admin-nav-logo">Magic Moments <em>by Venetia</em></div>
-    <div class="admin-nav-right">
-      <span class="admin-badge">Admin Panel</span>
-      <button class="logout-btn" onclick="logout()">Sign Out</button>
+    <button class="logout-btn" onclick="logout()">Sign Out</button>
+  </div>
+
+  <div class="admin-tabs">
+    <button class="tab-btn active" id="tab-btn-booking" onclick="switchTab('booking')">📅 Booking Management</button>
+    <button class="tab-btn" id="tab-btn-invoice" onclick="switchTab('invoice')">🧾 Invoice Generator</button>
+  </div>
+
+  <!-- BOOKING TAB -->
+
+  <div id="tab-booking" class="tab-content active">
+    <div class="admin-content">
+      <h1 class="admin-title">Booking <em>Management</em></h1>
+      <p class="admin-subtitle">Manage your availability and blocked dates below.</p>
+
+```
+  <div class="admin-card">
+    <div class="admin-card-title">Overview</div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-number" id="statBlocked">0</div><div class="stat-label">Blocked Dates</div></div>
+      <div class="stat-card"><div class="stat-number" id="statUpcoming">0</div><div class="stat-label">Upcoming Blocks</div></div>
+      <div class="stat-card"><div class="stat-number" id="statPast">0</div><div class="stat-label">Past Blocks</div></div>
     </div>
   </div>
 
-  <div class="admin-content">
-    <h1 class="admin-title">Booking <em>Management</em></h1>
-    <p class="admin-subtitle">Manage your availability and blocked dates below.</p>
+  <div class="admin-card">
+    <div class="admin-card-title">Block a Date</div>
+    <div class="date-add-row">
+      <input type="date" class="date-input" id="newDateInput">
+      <input type="text" class="note-input" id="newNoteInput" placeholder="Optional note (e.g. Wedding booked)">
+      <button class="add-btn" onclick="addBlockedDate()">Block Date</button>
+    </div>
+    <div class="status-msg" id="addStatus"></div>
+  </div>
 
-    <!-- Stats -->
-    <div class="admin-card">
-      <div class="admin-card-title">Overview</div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number" id="statBlocked">0</div>
-          <div class="stat-label">Blocked Dates</div>
+  <div class="admin-card">
+    <div class="admin-card-title">Blocked Dates</div>
+    <div class="blocked-dates-list" id="blockedDatesList">
+      <div class="empty-state">No dates blocked yet.</div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- INVOICE TAB -->
+
+  <div id="tab-invoice" class="tab-content">
+    <div class="admin-content">
+
+```
+  <!-- Print-only header -->
+  <div id="printHeader">
+    <h1>Magic Moments <em>by Venetia</em></h1>
+    <p>Rock Springs, Wyoming &bull; (307) 705-4003 &bull; magicmomentsbyvenetia@gmail.com &bull; @mommas_magic_balloons</p>
+    <div class="inv-meta">
+      <div>Invoice #: <span id="print-inv-num"></span></div>
+      <div>Date: <span id="print-inv-date"></span></div>
+      <div id="print-po-wrap" style="display:none">PO #: <span id="print-inv-po"></span></div>
+    </div>
+  </div>
+
+  <h1 class="admin-title">Invoice <em>Generator</em></h1>
+  <p class="admin-subtitle">Fill in the details below then print or save as PDF.</p>
+
+  <!-- Invoice Details -->
+  <div class="admin-card">
+    <div class="admin-card-title">Invoice Details</div>
+    <div class="form-grid-3">
+      <div class="form-group">
+        <label class="field-label">Invoice #</label>
+        <input type="text" class="field-input" id="inv-number" placeholder="MMV-001">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Invoice Date</label>
+        <input type="date" class="field-input" id="inv-date">
+      </div>
+      <div class="form-group">
+        <label class="field-label">PO Number (if applicable)</label>
+        <input type="text" class="field-input" id="inv-po" placeholder="Leave blank if not needed">
+      </div>
+    </div>
+  </div>
+
+  <!-- Client Info -->
+  <div class="admin-card">
+    <div class="admin-card-title">Bill To</div>
+    <div class="form-grid-2">
+      <div class="form-group">
+        <label class="field-label">Client Name / Organization</label>
+        <input type="text" class="field-input" id="inv-client-name" placeholder="Full name or company">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Phone</label>
+        <input type="tel" class="field-input" id="inv-client-phone" placeholder="(307) 000-0000">
+      </div>
+    </div>
+    <div class="form-grid-2">
+      <div class="form-group">
+        <label class="field-label">Email</label>
+        <input type="email" class="field-input" id="inv-client-email" placeholder="client@email.com">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Event Type</label>
+        <select class="field-select" id="inv-event-type">
+          <option value="">Select...</option>
+          <option>Birthday Party</option>
+          <option>Wedding</option>
+          <option>Anniversary</option>
+          <option>Graduation</option>
+          <option>Corporate Event</option>
+          <option>Baby Shower</option>
+          <option>Bridal Shower</option>
+          <option>School Event</option>
+          <option>Holiday Event</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid-2">
+      <div class="form-group">
+        <label class="field-label">Event Date</label>
+        <input type="date" class="field-input" id="inv-event-date">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Event Venue / Location</label>
+        <input type="text" class="field-input" id="inv-venue" placeholder="e.g. Rock Springs Civic Center">
+      </div>
+    </div>
+  </div>
+
+  <!-- Line Items -->
+  <div class="admin-card">
+    <div class="admin-card-title">Services</div>
+    <table class="line-items-table" id="lineItemsTable">
+      <thead>
+        <tr>
+          <th style="width:36%">Product / Service</th>
+          <th style="width:10%">Qty</th>
+          <th style="width:16%">Unit Price</th>
+          <th style="width:16%">Deposit</th>
+          <th style="width:14%">Line Total</th>
+          <th style="width:8%"></th>
+        </tr>
+      </thead>
+      <tbody id="lineItemsBody"></tbody>
+    </table>
+    <button class="add-line-btn" onclick="addLineItem()">+ Add Service Line</button>
+  </div>
+
+  <!-- Totals & Notes -->
+  <div class="admin-card">
+    <div class="admin-card-title">Summary</div>
+    <div class="totals-section">
+      <div class="total-row">
+        <span class="total-label">Subtotal (services)</span>
+        <span class="total-value" id="tot-subtotal">$0.00</span>
+      </div>
+      <div class="total-row">
+        <div>
+          <div class="total-label">Security Deposits</div>
+          <div class="deposit-note">Refundable upon successful event completion</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-number" id="statUpcoming">0</div>
-          <div class="stat-label">Upcoming Blocks</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="statPast">0</div>
-          <div class="stat-label">Past Blocks</div>
-        </div>
+        <span class="total-value" id="tot-deposits">$0.00</span>
+      </div>
+      <div class="total-row">
+        <span class="total-label grand">Total Due</span>
+        <span class="total-value grand" id="tot-total">$0.00</span>
       </div>
     </div>
 
-    <!-- Block a date -->
-    <div class="admin-card">
-      <div class="admin-card-title">Block a Date</div>
-      <div class="date-add-row">
-        <input type="date" class="date-input" id="newDateInput">
-        <input type="text" class="note-input" id="newNoteInput" placeholder="Optional note (e.g. Wedding booked)">
-        <button class="add-btn" onclick="addBlockedDate()">Block Date</button>
-      </div>
-      <div class="status-msg" id="addStatus"></div>
+    <div class="form-group" style="margin-bottom:24px;">
+      <label class="field-label">Notes / Payment Terms</label>
+      <textarea class="field-input" id="inv-notes" rows="3" placeholder="e.g. Payment due 7 days before event. Security deposit due at booking. Payments accepted: Cash, Venmo, Zelle."></textarea>
     </div>
 
-    <!-- Blocked dates list -->
-    <div class="admin-card">
-      <div class="admin-card-title">Blocked Dates</div>
-      <div class="blocked-dates-list" id="blockedDatesList">
-        <div class="empty-state">No dates blocked yet.</div>
-      </div>
+    <div class="invoice-actions">
+      <button class="add-btn" onclick="printInvoice()">🖨️ &nbsp;Print / Save as PDF</button>
+      <button class="rose-btn" onclick="clearInvoice()">🗑️ &nbsp;Clear Invoice</button>
     </div>
+  </div>
 
+</div>
+```
 
   </div>
 </div>
 
 <script>
-// Admin password
-const DEFAULT_PASSWORD = "Balloonmagic22!";
-
-function getPassword() {
-  return DEFAULT_PASSWORD;
-}
+// ── AUTH ──
+const PASSWORD = "Balloonmagic22!";
 
 function login() {
-  const input = document.getElementById("passwordInput").value;
-  if (input === getPassword()) {
+  if (document.getElementById("passwordInput").value === PASSWORD) {
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("adminPanel").style.display = "block";
     renderBlockedDates();
     updateStats();
+    initInvoice();
   } else {
     document.getElementById("loginError").style.display = "block";
     document.getElementById("passwordInput").value = "";
@@ -230,48 +385,36 @@ function logout() {
   document.getElementById("loginError").style.display = "none";
 }
 
-// Blocked dates management
-function getBlockedDates() {
-  try { return JSON.parse(localStorage.getItem("mmv_blocked_dates") || "[]"); } catch(e) { return []; }
+// ── TABS ──
+function switchTab(tab) {
+  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("tab-" + tab).classList.add("active");
+  document.getElementById("tab-btn-" + tab).classList.add("active");
 }
 
-function getBlockedDateNotes() {
-  try { return JSON.parse(localStorage.getItem("mmv_blocked_notes") || "{}"); } catch(e) { return {}; }
-}
+// ── BLOCKED DATES ──
+const todayStr = new Date().toISOString().split("T")[0];
 
-function saveBlockedDates(dates, notes) {
-  localStorage.setItem("mmv_blocked_dates", JSON.stringify(dates));
-  localStorage.setItem("mmv_blocked_notes", JSON.stringify(notes));
-}
+function getBlockedDates() { try { return JSON.parse(localStorage.getItem("mmv_blocked_dates") || "[]"); } catch(e) { return []; } }
+function getBlockedDateNotes() { try { return JSON.parse(localStorage.getItem("mmv_blocked_notes") || "{}"); } catch(e) { return {}; } }
+function saveBlockedDates(dates, notes) { localStorage.setItem("mmv_blocked_dates", JSON.stringify(dates)); localStorage.setItem("mmv_blocked_notes", JSON.stringify(notes)); }
 
 function addBlockedDate() {
-  const dateInput = document.getElementById("newDateInput").value;
-  const noteInput = document.getElementById("newNoteInput").value;
+  const dateVal = document.getElementById("newDateInput").value;
+  const noteVal = document.getElementById("newNoteInput").value;
   const statusEl = document.getElementById("addStatus");
-
-  if (!dateInput) {
-    showStatus(statusEl, "Please select a date.", "error");
-    return;
-  }
-
+  if (!dateVal) { showStatus(statusEl, "Please select a date.", "error"); return; }
   const dates = getBlockedDates();
   const notes = getBlockedDateNotes();
-
-  if (dates.includes(dateInput)) {
-    showStatus(statusEl, "This date is already blocked.", "error");
-    return;
-  }
-
-  dates.push(dateInput);
-  dates.sort();
-  if (noteInput) notes[dateInput] = noteInput;
+  if (dates.includes(dateVal)) { showStatus(statusEl, "This date is already blocked.", "error"); return; }
+  dates.push(dateVal); dates.sort();
+  if (noteVal) notes[dateVal] = noteVal;
   saveBlockedDates(dates, notes);
-
   document.getElementById("newDateInput").value = "";
   document.getElementById("newNoteInput").value = "";
   showStatus(statusEl, "Date blocked successfully!", "success");
-  renderBlockedDates();
-  updateStats();
+  renderBlockedDates(); updateStats();
 }
 
 function removeBlockedDate(date) {
@@ -279,31 +422,21 @@ function removeBlockedDate(date) {
   const notes = getBlockedDateNotes();
   delete notes[date];
   saveBlockedDates(dates, notes);
-  renderBlockedDates();
-  updateStats();
+  renderBlockedDates(); updateStats();
 }
 
 function renderBlockedDates() {
   const dates = getBlockedDates();
   const notes = getBlockedDateNotes();
   const list = document.getElementById("blockedDatesList");
-
-  if (dates.length === 0) {
-    list.innerHTML = '<div class="empty-state">No dates blocked yet.</div>';
-    return;
-  }
-
-  const today = new Date().toISOString().split("T")[0];
+  if (dates.length === 0) { list.innerHTML = '<div class="empty-state">No dates blocked yet.</div>'; return; }
   list.innerHTML = dates.map(date => {
-    const isPast = date < today;
-    const formatted = new Date(date + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+    const isPast = date < todayStr;
+    const formatted = new Date(date + "T12:00:00").toLocaleDateString("en-US", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
     const note = notes[date] ? `<div class="date-note">${notes[date]}</div>` : "";
     const pastBadge = isPast ? ' <span style="font-size:10px;color:rgba(255,255,255,0.25);margin-left:6px;">(past)</span>' : "";
-    return `<div class="blocked-date-item" style="${isPast ? "opacity:0.5;" : ""}">
-      <div>
-        <div class="date-label">${formatted}${pastBadge}</div>
-        ${note}
-      </div>
+    return `<div class="blocked-date-item" style="${isPast?"opacity:0.5;":""}">
+      <div><div class="date-label">${formatted}${pastBadge}</div>${note}</div>
       <button class="remove-btn" onclick="removeBlockedDate('${date}')">Remove</button>
     </div>`;
   }).join("");
@@ -311,26 +444,137 @@ function renderBlockedDates() {
 
 function updateStats() {
   const dates = getBlockedDates();
-  const today = new Date().toISOString().split("T")[0];
-  const upcoming = dates.filter(d => d >= today).length;
-  const past = dates.filter(d => d < today).length;
   document.getElementById("statBlocked").textContent = dates.length;
-  document.getElementById("statUpcoming").textContent = upcoming;
-  document.getElementById("statPast").textContent = past;
+  document.getElementById("statUpcoming").textContent = dates.filter(d => d >= todayStr).length;
+  document.getElementById("statPast").textContent = dates.filter(d => d < todayStr).length;
 }
 
-
-
 function showStatus(el, msg, type) {
-  el.textContent = msg;
-  el.className = "status-msg " + type;
-  el.style.display = "block";
+  el.textContent = msg; el.className = "status-msg " + type; el.style.display = "block";
   setTimeout(() => { el.style.display = "none"; }, 4000);
 }
 
-// Set min date to today
-const today = new Date().toISOString().split("T")[0];
-document.getElementById("newDateInput").setAttribute("min", today);
+document.getElementById("newDateInput").setAttribute("min", todayStr);
+
+// ── INVOICE ──
+const PRODUCTS = [
+  { name:"Small Garland (~5 ft)",          price:85,   deposit:0   },
+  { name:"Medium Garland (~10 ft)",         price:150,  deposit:0   },
+  { name:"Big Garland (~15 ft)",            price:180,  deposit:0   },
+  { name:"Chiara Garland (incl. wall)",     price:250,  deposit:0   },
+  { name:"Full Round Arch",                 price:275,  deposit:100 },
+  { name:"Full Square Arch",                price:275,  deposit:100 },
+  { name:"Balloon Columns",                 price:75,   deposit:20  },
+  { name:"Balloon Wall",                    price:450,  deposit:100 },
+  { name:"Balloon Bouquet - Small",         price:30,   deposit:0   },
+  { name:"Balloon Bouquet - Large",         price:75,   deposit:0   },
+  { name:"Table Setup",                     price:0,    deposit:0   },
+  { name:"Custom Package",                  price:0,    deposit:0   },
+  { name:"Travel Fee",                      price:0,    deposit:0   },
+  { name:"Other",                           price:0,    deposit:0   },
+];
+
+let lineItemCount = 0;
+
+function initInvoice() {
+  document.getElementById("inv-date").value = todayStr;
+  const num = parseInt(localStorage.getItem("mmv_inv_counter") || "0") + 1;
+  document.getElementById("inv-number").value = "MMV-" + String(num).padStart(3, "0");
+  if (document.getElementById("lineItemsBody").children.length === 0) addLineItem();
+}
+
+function addLineItem() {
+  lineItemCount++;
+  const id = lineItemCount;
+  const tbody = document.getElementById("lineItemsBody");
+  const row = document.createElement("tr");
+  row.id = "li-row-" + id;
+
+  const productOpts = `<option value="">Select service...</option>` +
+    PRODUCTS.map(p => `<option value="${p.name}" data-price="${p.price}" data-deposit="${p.deposit}">${p.name}${p.price ? " ($" + p.price + ")" : ""}</option>`).join("");
+
+  const qtyOpts = Array.from({length:20}, (_,i) => `<option value="${i+1}">${i+1}</option>`).join("");
+
+  row.innerHTML = `
+    <td><select class="li-select" id="li-prod-${id}" onchange="onProductChange(${id})">${productOpts}</select></td>
+    <td><select class="li-select" id="li-qty-${id}" onchange="recalculate()" style="width:60px;">${qtyOpts}</select></td>
+    <td><input type="number" class="li-input" id="li-price-${id}" placeholder="0.00" min="0" step="0.01" oninput="recalculate()" style="width:85px;"></td>
+    <td><input type="number" class="li-input" id="li-dep-${id}" placeholder="0.00" min="0" step="0.01" oninput="recalculate()" style="width:85px;"></td>
+    <td class="li-price" id="li-tot-${id}">$0.00</td>
+    <td><button class="li-remove" onclick="removeLineItem(${id})">✕</button></td>`;
+
+  tbody.appendChild(row);
+}
+
+function onProductChange(id) {
+  const sel = document.getElementById("li-prod-" + id);
+  const opt = sel.options[sel.selectedIndex];
+  const price = parseFloat(opt.getAttribute("data-price")) || 0;
+  const dep = parseFloat(opt.getAttribute("data-deposit")) || 0;
+  document.getElementById("li-price-" + id).value = price > 0 ? price.toFixed(2) : "";
+  document.getElementById("li-dep-" + id).value = dep > 0 ? dep.toFixed(2) : "";
+  recalculate();
+}
+
+function removeLineItem(id) {
+  const row = document.getElementById("li-row-" + id);
+  if (row) { row.remove(); recalculate(); }
+}
+
+function recalculate() {
+  let subtotal = 0, totalDep = 0;
+  document.querySelectorAll("#lineItemsBody tr").forEach(row => {
+    const m = row.id.match(/li-row-(\d+)/);
+    if (!m) return;
+    const id = m[1];
+    const qty = parseInt(document.getElementById("li-qty-" + id)?.value) || 1;
+    const price = parseFloat(document.getElementById("li-price-" + id)?.value) || 0;
+    const dep = parseFloat(document.getElementById("li-dep-" + id)?.value) || 0;
+    const lineTotal = qty * price;
+    const lineDep = qty * dep;
+    const totEl = document.getElementById("li-tot-" + id);
+    if (totEl) totEl.textContent = "$" + lineTotal.toFixed(2);
+    subtotal += lineTotal;
+    totalDep += lineDep;
+  });
+  document.getElementById("tot-subtotal").textContent = "$" + subtotal.toFixed(2);
+  document.getElementById("tot-deposits").textContent = "$" + totalDep.toFixed(2);
+  document.getElementById("tot-total").textContent = "$" + (subtotal + totalDep).toFixed(2);
+}
+
+function printInvoice() {
+  // Populate print header
+  const num = document.getElementById("inv-number").value;
+  const date = document.getElementById("inv-date").value;
+  const po = document.getElementById("inv-po").value;
+  document.getElementById("print-inv-num").textContent = num;
+  document.getElementById("print-inv-date").textContent = date ? new Date(date + "T12:00:00").toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}) : "";
+  if (po) {
+    document.getElementById("print-inv-po").textContent = po;
+    document.getElementById("print-po-wrap").style.display = "block";
+  } else {
+    document.getElementById("print-po-wrap").style.display = "none";
+  }
+  // Save invoice counter
+  const match = num.match(/MMV-(\d+)/);
+  if (match) localStorage.setItem("mmv_inv_counter", parseInt(match[1]));
+  window.print();
+}
+
+function clearInvoice() {
+  if (!confirm("Clear all invoice fields?")) return;
+  document.getElementById("lineItemsBody").innerHTML = "";
+  lineItemCount = 0;
+  ["inv-client-name","inv-client-phone","inv-client-email","inv-venue","inv-po","inv-notes"].forEach(id => { document.getElementById(id).value = ""; });
+  document.getElementById("inv-event-type").value = "";
+  document.getElementById("inv-event-date").value = "";
+  const num = parseInt(localStorage.getItem("mmv_inv_counter") || "0") + 1;
+  document.getElementById("inv-number").value = "MMV-" + String(num).padStart(3, "0");
+  document.getElementById("inv-date").value = todayStr;
+  recalculate();
+  addLineItem();
+}
 </script>
+
 </body>
 </html>
