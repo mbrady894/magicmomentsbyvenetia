@@ -777,6 +777,27 @@ function generatePDF() {
     y += splitNotes.length * 5 + 4;
   }
 
+  // ── PAYMENT TERMS ──
+  y += 4;
+  doc.setDrawColor(201, 168, 76);
+  doc.setLineWidth(0.3);
+  doc.line(margin, y, pageW - margin, y);
+  y += 6;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(120, 80, 140);
+  doc.text("PAYMENT TERMS & POLICIES", margin, y);
+  y += 5;
+
+  const terms = "Payment is due within 30 days of invoice date. Security deposits are due at time of booking and are fully refundable upon successful event completion. Accepted payment methods: Cash, Venmo, and Square. A late fee of 10% will be applied to invoices unpaid after 30 days. Cancellations made less than 7 days before the event date may forfeit the security deposit. Thank you for choosing Magic Moments by Venetia \u2014 we look forward to making your event magical!";
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(8);
+  doc.setTextColor(80, 60, 100);
+  const splitTerms = doc.splitTextToSize(terms, contentW);
+  doc.text(splitTerms, margin, y);
+  y += splitTerms.length * 4.5 + 6;
+
   // ── FOOTER ──
   doc.setFillColor(45, 27, 51);
   doc.rect(0, 285, pageW, 12, "F");
