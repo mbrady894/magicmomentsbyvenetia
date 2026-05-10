@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Panel | Magic Moments by Venetia</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: "Jost", "Arial", sans-serif; background: #1a0f20; color: white; min-height: 100vh; }
@@ -251,7 +252,7 @@ input[type="date"].field-input { max-width: 100%; min-width: 0; }
             <input type="date" class="field-input" id="inv-date" style="width:200px;">
           </div>
           <div class="form-group">
-            <label class="field-label">PO Number</label>
+            <label class="field-label">PO Number (if applicable)</label>
             <input type="text" class="field-input" id="inv-po" placeholder="Leave blank if not needed">
           </div>
         </div>
@@ -350,7 +351,7 @@ input[type="date"].field-input { max-width: 100%; min-width: 0; }
         </div>
 
         <div class="invoice-actions">
-          <button class="add-btn" onclick="printInvoice()">🖨️ &nbsp;Print / Save as PDF</button>
+          <button class="add-btn" onclick="generatePDF()">📄 &nbsp;Save as PDF</button>
           <button class="rose-btn" onclick="clearInvoice()">🗑️ &nbsp;Clear Invoice</button>
         </div>
       </div>
@@ -540,25 +541,256 @@ function recalculate() {
   document.getElementById("tot-total").textContent = "$" + (subtotal + totalDep).toFixed(2);
 }
 
-function printInvoice() {
-  // Populate print header
-  const num = document.getElementById("inv-number").value;
-  const date = document.getElementById("inv-date").value;
+function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+  const num = document.getElementById("inv-number").value || "MMV-001";
+  const dateVal = document.getElementById("inv-date").value;
   const po = document.getElementById("inv-po").value;
-  document.getElementById("print-inv-num").textContent = num;
-  document.getElementById("print-inv-date").textContent = date ? new Date(date + "T12:00:00").toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}) : "";
-  if (po) {
-    document.getElementById("print-inv-po").textContent = po;
-    document.getElementById("print-po-wrap").style.display = "block";
-  } else {
-    document.getElementById("print-po-wrap").style.display = "none";
+  const clientName = document.getElementById("inv-client-name").value;
+  const clientPhone = document.getElementById("inv-client-phone").value;
+  const clientEmail = document.getElementById("inv-client-email").value;
+  const eventType = document.getElementById("inv-event-type").value;
+  const eventDateVal = document.getElementById("inv-event-date").value;
+  const venue = document.getElementById("inv-venue").value;
+  const notes = document.getElementById("inv-notes").value;
+  const subtotal = document.getElementById("tot-subtotal").textContent;
+  const deposits = document.getElementById("tot-deposits").textContent;
+  const total = document.getElementById("tot-total").textContent;
+
+  const formatDate = (d) => d ? new Date(d + "T12:00:00").toLocaleDateString("en-US", {year:"numeric",month:"long",day:"numeric"}) : "";
+
+  const pageW = 210;
+  const margin = 18;
+  const contentW = pageW - margin * 2;
+  let y = 18;
+
+  // ── HEADER ──
+  doc.setFillColor(45, 27, 51);
+  doc.rect(0, 0, pageW, 36, "F");
+
+  doc.setFont("times", "italic");
+  doc.setFontSize(22);
+  doc.setTextColor(232, 213, 163);
+  doc.text("Magic Moments ", margin, 16);
+  const mmW = doc.getTextWidth("Magic Moments ");
+  doc.setTextColor(232, 160, 176);
+  doc.text("by Venetia", margin + mmW, 16);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(200, 180, 220);
+  doc.text("Rock Springs, Wyoming  \u2022  (307) 705-4003  \u2022  magicmomentsbyvenetia@gmail.com  \u2022  @mommas_magic_balloons", margin, 24);
+
+  // Divider
+  doc.setDrawColor(201, 168, 76);
+  doc.setLineWidth(0.4);
+  doc.line(margin, 30, pageW - margin, 30);
+  y = 42;
+
+  // ── INVOICE META ──
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(100, 60, 120);
+  doc.text("INVOICE DETAILS", margin, y);
+  y += 6;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(40, 20, 50);
+
+  // Three columns: Invoice#, Date, PO
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(120, 80, 140);
+  doc.text("INVOICE #", margin, y);
+  doc.text("INVOICE DATE", margin + 60, y);
+  if (po) doc.text("PO NUMBER", margin + 130, y);
+  y += 5;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(20, 10, 30);
+  doc.text(num, margin, y);
+  doc.text(formatDate(dateVal), margin + 60, y);
+  if (po) doc.text(po, margin + 130, y);
+  y += 10;
+
+  // Divider
+  doc.setDrawColor(220, 210, 230);
+  doc.setLineWidth(0.2);
+  doc.line(margin, y, pageW - margin, y);
+  y += 8;
+
+  // ── BILL TO ──
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(100, 60, 120);
+  doc.text("BILL TO", margin, y);
+  y += 6;
+
+  const col2 = margin + contentW / 2;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(120, 80, 140);
+  doc.text("CLIENT NAME / ORGANIZATION", margin, y);
+  doc.text("PHONE", col2, y);
+  y += 5;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(20, 10, 30);
+  doc.text(clientName || "-", margin, y);
+  doc.text(clientPhone || "-", col2, y);
+  y += 8;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(120, 80, 140);
+  doc.text("EMAIL", margin, y);
+  doc.text("EVENT TYPE", col2, y);
+  y += 5;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(20, 10, 30);
+  doc.text(clientEmail || "-", margin, y);
+  doc.text(eventType || "-", col2, y);
+  y += 8;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(120, 80, 140);
+  doc.text("EVENT DATE", margin, y);
+  doc.text("EVENT VENUE / LOCATION", col2, y);
+  y += 5;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(20, 10, 30);
+  doc.text(formatDate(eventDateVal) || "-", margin, y);
+  doc.text(venue || "-", col2, y);
+  y += 10;
+
+  // Divider
+  doc.setDrawColor(220, 210, 230);
+  doc.setLineWidth(0.2);
+  doc.line(margin, y, pageW - margin, y);
+  y += 8;
+
+  // ── SERVICES TABLE ──
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(100, 60, 120);
+  doc.text("SERVICES", margin, y);
+  y += 6;
+
+  // Table header
+  doc.setFillColor(45, 27, 51);
+  doc.rect(margin, y, contentW, 7, "F");
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(232, 213, 163);
+  doc.text("PRODUCT / SERVICE", margin + 2, y + 5);
+  doc.text("QTY", margin + 95, y + 5);
+  doc.text("UNIT PRICE", margin + 115, y + 5);
+  doc.text("DEPOSIT", margin + 140, y + 5);
+  doc.text("TOTAL", margin + 163, y + 5);
+  y += 10;
+
+  // Table rows
+  const rows = document.querySelectorAll("#lineItemsBody tr");
+  let rowAlt = false;
+  rows.forEach(row => {
+    const m = row.id.match(/li-row-(\d+)/);
+    if (!m) return;
+    const id = m[1];
+    const prod = document.getElementById("li-prod-" + id)?.value || "";
+    const qty = document.getElementById("li-qty-" + id)?.value || "1";
+    const price = parseFloat(document.getElementById("li-price-" + id)?.value) || 0;
+    const dep = parseFloat(document.getElementById("li-dep-" + id)?.value) || 0;
+    const lineTotal = (parseInt(qty) * price).toFixed(2);
+
+    if (!prod) return;
+
+    if (rowAlt) {
+      doc.setFillColor(248, 244, 252);
+      doc.rect(margin, y - 4, contentW, 8, "F");
+    }
+    rowAlt = !rowAlt;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(20, 10, 30);
+    doc.text(prod, margin + 2, y);
+    doc.text(qty, margin + 97, y);
+    doc.text("$" + price.toFixed(2), margin + 115, y);
+    doc.text(dep > 0 ? "$" + dep.toFixed(2) : "-", margin + 140, y);
+    doc.text("$" + lineTotal, margin + 163, y);
+
+    doc.setDrawColor(230, 220, 240);
+    doc.setLineWidth(0.1);
+    doc.line(margin, y + 3, pageW - margin, y + 3);
+    y += 8;
+  });
+
+  y += 4;
+
+  // ── TOTALS ──
+  doc.setFillColor(249, 246, 240);
+  doc.rect(margin + contentW * 0.5, y, contentW * 0.5, 28, "F");
+  doc.setDrawColor(201, 168, 76);
+  doc.setLineWidth(0.3);
+  doc.rect(margin + contentW * 0.5, y, contentW * 0.5, 28);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(80, 60, 100);
+  doc.text("Subtotal:", margin + contentW * 0.5 + 4, y + 7);
+  doc.text(subtotal, pageW - margin - 4, y + 7, { align: "right" });
+
+  doc.text("Security Deposits:", margin + contentW * 0.5 + 4, y + 15);
+  doc.text(deposits, pageW - margin - 4, y + 15, { align: "right" });
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.setTextColor(45, 27, 51);
+  doc.text("Total Due:", margin + contentW * 0.5 + 4, y + 25);
+  doc.setTextColor(201, 100, 122);
+  doc.text(total, pageW - margin - 4, y + 25, { align: "right" });
+  y += 36;
+
+  // ── NOTES ──
+  if (notes) {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 80, 140);
+    doc.text("NOTES / PAYMENT TERMS", margin, y);
+    y += 5;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(60, 40, 80);
+    const splitNotes = doc.splitTextToSize(notes, contentW);
+    doc.text(splitNotes, margin, y);
+    y += splitNotes.length * 5 + 4;
   }
+
+  // ── FOOTER ──
+  doc.setFillColor(45, 27, 51);
+  doc.rect(0, 285, pageW, 12, "F");
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+  doc.setTextColor(180, 160, 200);
+  doc.text("Thank you for choosing Magic Moments by Venetia! \u2022 magicmomentsbyvenetia@gmail.com \u2022 (307) 705-4003", pageW / 2, 292, { align: "center" });
+
   // Save invoice counter
   const match = num.match(/MMV-(\d+)/);
   if (match) localStorage.setItem("mmv_inv_counter", parseInt(match[1]));
-  // Show tip then print
-  alert("Tip: In the print dialog, look for 'Options' or 'More Settings' and turn OFF 'Headers and Footers' to remove the website address from the printed invoice.");
-  window.print();
+
+  // Save PDF
+  doc.save("Invoice-" + num + ".pdf");
 }
 
 function clearInvoice() {
